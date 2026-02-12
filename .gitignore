@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Environment
+.env
+venv/
+env/
+
+# Output
+output/
+*.csv
+pipeline_progress.json
+
+# OS
+.DS_Store
+Thumbs.db
