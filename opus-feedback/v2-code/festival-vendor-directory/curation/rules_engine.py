@@ -20,7 +20,7 @@ Also computes a "signal strength" score that helps the LLM:
 import pandas as pd
 import re
 from .config import (
-    MIN_FOLLOWERS,
+    MIN_FOLLOWERS, MAX_FOLLOWERS, BIG_BRAND_FOLLOWER_THRESHOLD,
     RULES_NO_THRESHOLD,
     PRODUCT_KEYWORDS, AESTHETIC_KEYWORDS, NEGATIVE_KEYWORDS,
     PERSONAL_ACCOUNT_SIGNALS,
@@ -132,8 +132,13 @@ def score_record(row: pd.Series) -> dict:
             'signals': signals,
         }
 
-    # Follower ceiling removed per Dan's modification
-    # Brand detection via domain blocklist, LLM, and language patterns is sufficient
+    # Way too many followers
+    if followers > BIG_BRAND_FOLLOWER_THRESHOLD:
+        return {
+            'score': 0.0, 'classification': 'no',
+            'reasons': [f'followers ({followers:,}) exceed brand threshold ({BIG_BRAND_FOLLOWER_THRESHOLD:,})'],
+            'signals': signals,
+        }
 
     # Too few followers
     if followers < MIN_FOLLOWERS:

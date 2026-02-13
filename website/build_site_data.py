@@ -16,9 +16,12 @@ import os
 
 def clean_bio(bio: str, max_length: int = 120) -> str:
     """Clean biography for display on vendor card."""
-    if not bio:
+    if not bio or bio in (None, '', 'nan'):
         return ""
-    # Remove emoji (optional — keep for now, they're fun)
+    # Convert to string if needed (handles float NaN)
+    bio = str(bio)
+    if bio == 'nan':
+        return ""
     # Remove excessive whitespace
     bio = re.sub(r'\s+', ' ', bio).strip()
     # Truncate
@@ -84,9 +87,9 @@ def build_site_data(input_path: str, output_path: str):
             # Search text: combine all useful text for client-side search
             'search_text': ' '.join(filter(None, [
                 v['username'],
-                v.get('biography', ''),
-                v.get('website_title', ''),
-                v.get('website_description', ''),
+                str(v.get('biography', '')) if v.get('biography') not in (None, '', 'nan') else '',
+                str(v.get('website_title', '')) if v.get('website_title') not in (None, '', 'nan') else '',
+                str(v.get('website_description', '')) if v.get('website_description') not in (None, '', 'nan') else '',
                 ' '.join(categories),
             ])).lower(),
         }

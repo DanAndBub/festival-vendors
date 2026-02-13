@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-02-11T12:00:00",
+  "total_vendors": 5,
+  "categories": [
+    "Festival Clothing",
+    "Jewelry & Accessories",
+    "Art & Prints",
+    "Stickers & Patches"
+  ],
+  "vendors": [
+    {
+      "id": "dnbeadz",
+      "name": "DNBeadz",
+      "username": "dnbeadz",
+      "bio": "Hand beaded and braided accessories designed to let YOU shine \u2728",
+      "categories": [
+        "Jewelry & Accessories"
+      ],
+      "shop_url": "https://www.dnbeadz.com/",
+      "instagram_url": "https://www.instagram.com/dnbeadz/",
+      "domain": "dnbeadz.com",
+      "followers": 8139,
+      "score": 0.93,
+      "search_text": "dnbeadz hand beaded braided accessories jewelry rave"
+    },
+    {
+      "id": "mindfulldesign.co",
+      "name": "Mindfull Design Co",
+      "username": "mindfulldesign.co",
+      "bio": "PATCH WERK.. psychedelic maximalist one offs, tie dye, stickers, & art \ud83e\udd20\ud83c\udf7e\ud83d\udc9c",
+      "categories": [
+        "Stickers & Patches",
+        "Art & Prints"
+      ],
+      "shop_url": "http://etsy.com/shop/mindfullmatters",
+      "instagram_url": "https://www.instagram.com/mindfulldesign.co/",
+      "domain": "etsy.com",
+      "followers": 7023,
+      "score": 1.0,
+      "search_text": "mindfulldesign psychedelic maximalist tie dye stickers art patches"
+    },
+    {
+      "id": "kandi.bean.co",
+      "name": "Kandi Bean Co",
+      "username": "kandi.bean.co",
+      "bio": "Harness Tops \u2b51 Bikini Chains \u2b51 Jewelry \u2014 OOAK pieces crafted with love",
+      "categories": [
+        "Jewelry & Accessories",
+        "Festival Clothing"
+      ],
+      "shop_url": "http://kandibeanco.etsy.com/",
+      "instagram_url": "https://www.instagram.com/kandi.bean.co/",
+      "domain": "etsy.com",
+      "followers": 892,
+      "score": 1.0,
+      "search_text": "kandi bean harness bikini chains jewelry ooak festival clothing"
+    },
+    {
+      "id": "connie.verse",
+      "name": "Connieverse",
+      "username": "connie.verse",
+      "bio": "I paint words on things. Creating wearable art for weirdos and starfires.",
+      "categories": [
+        "Festival Clothing",
+        "Art & Prints"
+      ],
+      "shop_url": "http://connieverse.com/",
+      "instagram_url": "https://www.instagram.com/connie.verse/",
+      "domain": "connieverse.com",
+      "followers": 8400,
+      "score": 0.96,
+      "search_text": "connieverse wearable art clothing paint words creative festival"
+    },
+    {
+      "id": "spaceymaciedesigns",
+      "name": "Spacey Macie Designs",
+      "username": "spaceymaciedesigns",
+      "bio": "Passionate artist of fibers, digital creations, & whatever else I dream up \ud83e\ude84\u2728\ud83d\udc9c",
+      "categories": [
+        "Art & Prints"
+      ],
+      "shop_url": "https://linktr.ee/spaceymaciedesigns",
+      "instagram_url": "https://www.instagram.com/spaceymaciedesigns/",
+      "domain": "linktr.ee",
+      "followers": 2531,
+      "score": 0.89,
+      "search_text": "spaceymaciedesigns fiber art digital creations artist"
+    }
+  ]
+}

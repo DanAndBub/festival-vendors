@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festival Vendor Directory — Handmade, Trippy, One-of-a-Kind</title>
+<meta name="description" content="Curated directory of independent, handmade festival vendors. Trippy clothing, psychedelic art, unique jewelry, and one-of-a-kind finds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-card: #12121c;
+  --bg-card-hover: #1a1a2e;
+  --bg-input: #16161f;
+  --text-primary: #e8e6f0;
+  --text-secondary: #9892a6;
+  --text-muted: #5c566e;
+  --accent-1: #ff6bff;
+  --accent-2: #6bffb8;
+  --accent-3: #ffb86b;
+  --accent-4: #6bb5ff;
+  --accent-5: #b86bff;
+  --border: #2a2a3a;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-pill: 100px;
+  --transition: 0.2s ease;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,107,255,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(107,255,184,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(107,181,255,0.03) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+
+/* Header */
+.header {
+  position: relative; z-index: 10;
+  padding: 2rem 1.5rem 1rem; text-align: center;
+}
+.header__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-5), var(--accent-4));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 0.3rem;
+}
+.header__subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+.header__count {
+  display: inline-block; margin-top: 0.5rem;
+  font-family: var(--font-display); font-size: 0.75rem; color: var(--accent-2);
+  background: rgba(107,255,184,0.08);
+  padding: 0.25rem 0.75rem; border-radius: var(--radius-pill);
+  border: 1px solid rgba(107,255,184,0.15);
+}
+
+/* Controls */
+.controls {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+}
+.search-wrap {
+  position: relative; max-width: 600px; margin: 0 auto 0.75rem;
+}
+.search-wrap svg {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); width: 18px; height: 18px; pointer-events: none;
+}
+.search-input {
+  width: 100%; padding: 0.7rem 1rem 0.7rem 2.5rem;
+  font-family: var(--font-body); font-size: 0.95rem; color: var(--text-primary);
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius); outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px rgba(255,107,255,0.1);
+}
+.filters {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  justify-content: center; max-width: 800px; margin: 0 auto;
+}
+.filter-btn {
+  font-family: var(--font-body); font-size: 0.78rem; font-weight: 500;
+  color: var(--text-secondary); background: transparent;
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 0.3rem 0.7rem; cursor: pointer;
+  transition: all var(--transition); white-space: nowrap; user-select: none;
+}
+.filter-btn:hover {
+  color: var(--text-primary); border-color: var(--accent-1);
+  background: rgba(255,107,255,0.05);
+}
+.filter-btn.active {
+  color: var(--bg-primary); background: var(--accent-1);
+  border-color: var(--accent-1); font-weight: 600;
+}
+
+/* Results */
+.results-info {
+  text-align: center; padding: 0.75rem 1.5rem 0;
+  font-size: 0.82rem; color: var(--text-muted);
+  font-family: var(--font-display); position: relative; z-index: 1;
+}
+
+/* Vendor Grid */
+.vendor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; padding: 1rem 1.5rem 3rem;
+  max-width: 1200px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+/* Vendor Card */
+.vendor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: all var(--transition);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  animation: fadeIn 0.3s ease forwards;
+  opacity: 0;
+}
+.vendor-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,107,255,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 30px rgba(255,107,255,0.05);
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.vendor-card__header {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.vendor-card__avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-5));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: white; flex-shrink: 0;
+  text-transform: uppercase;
+}
+.vendor-card__name {
+  font-size: 1rem; font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.vendor-card__username {
+  font-size: 0.78rem; color: var(--text-muted);
+  font-family: var(--font-display);
+}
+.vendor-card__bio {
+  font-size: 0.88rem; color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.vendor-card__tags {
+  display: flex; flex-wrap: wrap; gap: 0.3rem;
+}
+.vendor-card__tag {
+  font-size: 0.7rem; font-weight: 500;
+  padding: 0.15rem 0.5rem; border-radius: var(--radius-pill);
+  background: rgba(184,107,255,0.1); color: var(--accent-5);
+  border: 1px solid rgba(184,107,255,0.15);
+}
+.vendor-card__links {
+  display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+.vendor-card__link {
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--accent-2); text-decoration: none;
+  padding: 0.35rem 0.75rem; border-radius: var(--radius-sm);
+  background: rgba(107,255,184,0.06);
+  border: 1px solid rgba(107,255,184,0.12);
+  transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 0.3rem;
+}
+.vendor-card__link:hover {
+  background: rgba(107,255,184,0.12);
+  border-color: rgba(107,255,184,0.3);
+}
+.vendor-card__link--ig {
+  color: var(--accent-3);
+  background: rgba(255,184,107,0.06);
+  border-color: rgba(255,184,107,0.12);
+}
+.vendor-card__link--ig:hover {
+  background: rgba(255,184,107,0.12);
+  border-color: rgba(255,184,107,0.3);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center; padding: 4rem 2rem;
+  position: relative; z-index: 1;
+}
+.empty-state__icon { font-size: 3rem; margin-bottom: 1rem; }
+.empty-state__text {
+  font-size: 1.1rem; color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+  text-align: center; padding: 2rem;
+  font-size: 0.78rem; color: var(--text-muted);
+  position: relative; z-index: 1;
+}
+.footer a { color: var(--accent-4); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Loading */
+.loading {
+  text-align: center; padding: 4rem;
+  font-family: var(--font-display); color: var(--text-muted);
+  position: relative; z-index: 1;
+}
+.loading__spinner {
+  width: 40px; height: 40px; margin: 0 auto 1rem;
+  border: 3px solid var(--border); border-top-color: var(--accent-1);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .header { padding: 1.5rem 1rem 0.75rem; }
+  .controls { padding: 0.75rem 1rem; }
+  .vendor-grid {
+    grid-template-columns: 1fr;
+    padding: 0.75rem 1rem 2rem;
+  }
+  .filters { gap: 0.3rem; }
+  .filter-btn { font-size: 0.72rem; padding: 0.25rem 0.55rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="header__title">Festival Vendor Directory</h1>
+  <p class="header__subtitle">Curated handmade, trippy, one-of-a-kind finds</p>
+  <span class="header__count" id="vendorCount">Loading...</span>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" class="search-input" id="searchInput"
+      placeholder="Search vendors, products, vibes..."
+      autocomplete="off" spellcheck="false">
+  </div>
+  <div class="filters" id="filterContainer"></div>
+</div>
+
+<div class="results-info" id="resultsInfo"></div>
+
+<div id="vendorGrid" class="vendor-grid"></div>
+
+<div class="loading" id="loadingState">
+  <div class="loading__spinner"></div>
+  <p>Loading vendors...</p>
+</div>
+
+<div class="empty-state" id="emptyState" style="display:none">
+  <div class="empty-state__icon">🔮</div>
+  <p class="empty-state__text">No vendors match your search. Try different keywords!</p>
+</div>
+
+<footer class="footer">
+  <p>AI-curated from Instagram. Built with 🍄 by Bub.</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // State
+  let allVendors = [];
+  let allCategories = [];
+  let activeCategory = 'all';
+  let searchQuery = '';
+  let debounceTimer = null;
+
+  // Accent colors for avatar backgrounds (cycled per vendor)
+  const avatarGradients = [
+    ['#ff6bff', '#b86bff'],
+    ['#6bffb8', '#6bb5ff'],
+    ['#ffb86b', '#ff6bff'],
+    ['#b86bff', '#6bb5ff'],
+    ['#6bb5ff', '#6bffb8'],
+    ['#ff6bff', '#ffb86b'],
+  ];
+
+  // DOM refs
+  const grid = document.getElementById('vendorGrid');
+  const searchInput = document.getElementById('searchInput');
+  const filterContainer = document.getElementById('filterContainer');
+  const resultsInfo = document.getElementById('resultsInfo');
+  const loadingState = document.getElementById('loadingState');
+  const emptyState = document.getElementById('emptyState');
+  const vendorCount = document.getElementById('vendorCount');
+
+  // Load data
+  async function init() {
+    try {
+      const resp = await fetch('vendors.json');
+      if (!resp.ok) throw new Error('Failed to load vendors.json');
+      const data = await resp.json();
+
+      allVendors = data.vendors || [];
+      allCategories = data.categories || [];
+
+      vendorCount.textContent = `${allVendors.length} curated vendors`;
+      loadingState.style.display = 'none';
+
+      buildFilters();
+      render();
+
+      // Event listeners
+      searchInput.addEventListener('input', onSearch);
+    } catch (err) {
+      loadingState.innerHTML = `<p style="color:var(--accent-3)">
+        Could not load vendor data.<br>
+        <small style="color:var(--text-muted)">Make sure vendors.json exists in the same directory.</small>
+      </p>`;
+      console.error('Init error:', err);
+    }
+  }
+
+  function buildFilters() {
+    // "All" button
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active';
+    allBtn.dataset.category = 'all';
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', () => setCategory('all'));
+    filterContainer.appendChild(allBtn);
+
+    // Category buttons
+    allCategories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.category = cat;
+      btn.textContent = cat;
+      btn.addEventListener('click', () => setCategory(cat));
+      filterContainer.appendChild(btn);
+    });
+  }
+
+  function setCategory(cat) {
+    activeCategory = cat;
+    // Update active state
+    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === cat);
+    });
+    render();
+  }
+
+  function onSearch() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      searchQuery = searchInput.value.trim().toLowerCase();
+      render();
+    }, 150);
+  }
+
+  function filterVendors() {
+    return allVendors.filter(v => {
+      // Category filter
+      if (activeCategory !== 'all') {
+        if (!v.categories || !v.categories.includes(activeCategory)) return false;
+      }
+      // Search filter
+      if (searchQuery) {
+        if (!v.search_text || !v.search_text.includes(searchQuery)) return false;
+      }
+      return true;
+    });
+  }
+
+  function createVendorCard(vendor, index) {
+    const card = document.createElement('div');
+    card.className = 'vendor-card';
+    card.style.animationDelay = `${Math.min(index * 0.03, 0.5)}s`;
+
+    const initial = (vendor.username || '?')[0].toUpperCase();
+    const gradient = avatarGradients[index % avatarGradients.length];
+
+    const name = vendor.name || `@${vendor.username}`;
+    const bio = vendor.bio || '';
+    const categories = vendor.categories || [];
+
+    let linksHTML = '';
+    if (vendor.shop_url && vendor.shop_url !== vendor.instagram_url) {
+      linksHTML += `<a href="${escapeHtml(vendor.shop_url)}" target="_blank" rel="noopener" class="vendor-card__link">
+        Shop ↗
+      </a>`;
+    }
+    linksHTML += `<a href="${escapeHtml(vendor.instagram_url)}" target="_blank" rel="noopener" class="vendor-card__link vendor-card__link--ig">
+      Instagram ↗
+    </a>`;
+
+    card.innerHTML = `
+      <div class="vendor-card__header">
+        <div class="vendor-card__avatar" style="background:linear-gradient(135deg,${gradient[0]},${gradient[1]})">${initial}</div>
+        <div>
+          <div class="vendor-card__name">${escapeHtml(name)}</div>
+          <div class="vendor-card__username">@${escapeHtml(vendor.username)}</div>
+        </div>
+      </div>
+      ${bio ? `<p class="vendor-card__bio">${escapeHtml(bio)}</p>` : ''}
+      ${categories.length ? `<div class="vendor-card__tags">
+        ${categories.map(c => `<span class="vendor-card__tag">${escapeHtml(c)}</span>`).join('')}
+      </div>` : ''}
+      <div class="vendor-card__links">${linksHTML}</div>
+    `;
+
+    return card;
+  }
+
+  function render() {
+    const filtered = filterVendors();
+
+    // Results info
+    if (searchQuery || activeCategory !== 'all') {
+      resultsInfo.textContent = `Showing ${filtered.length} of ${allVendors.length} vendors`;
+    } else {
+      resultsInfo.textContent = '';
+    }
+
+    // Clear grid
+    grid.innerHTML = '';
+
+    if (filtered.length === 0) {
+      emptyState.style.display = 'block';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+
+    // Render cards
+    const fragment = document.createDocumentFragment();
+    filtered.forEach((vendor, i) => {
+      fragment.appendChild(createVendorCard(vendor, i));
+    });
+    grid.appendChild(fragment);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Go
+  init();
+})();
+</script>
+</body>
+</html>

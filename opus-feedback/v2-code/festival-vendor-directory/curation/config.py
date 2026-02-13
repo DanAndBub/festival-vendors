@@ -36,10 +36,8 @@ LLM_TIMEOUT = 60
 # Stage 3 (Gate):   Hard requirements (shop URL, etc.)
 
 MIN_FOLLOWERS = 200
-# MAX_FOLLOWERS removed per Dan's modification:
-# Follower ceiling punishes successful handmade creators.
-# Brand detection happens via domain blocklist, LLM prompt, and language patterns.
-# Real signals are in bio text ("handcrafted", "DM for custom"), not follower count.
+MAX_FOLLOWERS = 500_000
+BIG_BRAND_FOLLOWER_THRESHOLD = 80_000
 
 # Rules engine: only has NO vs REVIEW
 RULES_NO_THRESHOLD = 0.30  # Below this = definite NO

@@ -89,10 +89,8 @@ def _call_deepseek(vendors_text: str) -> list[dict]:
 
 def run_category_tagger(df: pd.DataFrame, batch_size: int = 10) -> pd.DataFrame:
     df = df.copy()
-    
-    # Force columns to string dtype (avoid float64 dtype from NaN values)
-    df['categories'] = df.get('categories', pd.Series([''] * len(df))).astype(str).fillna('')
-    df['vendor_tags'] = df.get('vendor_tags', pd.Series([''] * len(df))).astype(str).fillna('')
+    df['categories'] = ''
+    df['vendor_tags'] = ''
 
     curated = df[df['final_classification'] == 'yes']
     if len(curated) == 0:
